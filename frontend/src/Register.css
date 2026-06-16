@@ -1,0 +1,19 @@
+.select-rol {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background: #fffceb;
+  font-size: 16px;
+}
+
+.mensaje-error {
+  background: #ffe5e5;
+  color: #d60000;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 14px;
+}
