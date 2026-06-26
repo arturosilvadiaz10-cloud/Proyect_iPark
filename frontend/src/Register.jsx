@@ -53,9 +53,7 @@ Rol: ${rol}
     <div className="contenedor">
       <section className="panel-marca">
         <div className="logo-wrapper">
-          <h1 className="logo-text">
-            <span className="logo-p">P</span>ark
-          </h1>
+          <img src="logo-_Park-blanco.png"></img>
 
           <p className="slogan">
           </p>

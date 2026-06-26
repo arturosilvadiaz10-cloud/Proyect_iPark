@@ -1,85 +1,66 @@
 import { useState } from "react";
-import "./Login.css";
+import "./style.css"; 
 
-export default function Login({ irARegistro }) {
-  const [usuario, setUsuario] = useState("admin@ipark.com");
-  const [password, setPassword] = useState("123456");
-  const [recordar, setRecordar] = useState(true);
+export default function Login({ irARegistro, alIniciarSesion }) {
+  const [correo, setCorreo] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Bienvenido ${usuario}`);
+
+    if (!correo || !password) {
+      setError("Por favor complete todos los campos.");
+      return;
+    }
+
+    setError("");
+    
+    
+    if (alIniciarSesion) {
+      alIniciarSesion();
+    }
   };
 
   return (
     <div className="contenedor">
       <section className="panel-marca">
-        <div className="logo-wrapper">+
-            <img src="logo-_Park-blanco.png"></img>
-
-
-          <p className="slogan">
-            ADMINISTRADOR DE PARQUEADEROS 
-          </p>
+        <div className="logo-wrapper">
+          <h1 className="logo-text">
+            <span className="logo-p">P</span>ark
+          </h1>
+          <p className="slogan">Gestión eficiente de estacionamientos</p>
         </div>
       </section>
 
       <section className="panel-formulario">
         <form className="login-card" onSubmit={handleSubmit}>
-          <h1 className="titulo">
-            INICIAR SESIÓN
-          </h1>
+          <h1 className="titulo">INICIAR SESIÓN</h1>
 
-          <label>USUARIO</label>
-
+          <label>CORREO ELECTRÓNICO</label>
           <input
-            className="input-verde"
             type="email"
-            value={usuario}
-            onChange={(e) =>
-              setUsuario(e.target.value)
-            }
+            placeholder="correo@ejemplo.com"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
           />
 
           <label>CONTRASEÑA</label>
-
           <input
-            className="input-normal"
             type="password"
+            placeholder="********"
             value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
+            onChange={(e) => setPassword(e.target.value)}
           />
 
-          <div className="opciones">
-            <label>
-              <input
-                type="checkbox"
-                checked={recordar}
-                onChange={(e) =>
-                  setRecordar(e.target.checked)
-                }
-              />
-              recordar la sesion 
-            </label>
+          {error && <p className="mensaje-error">{error}</p>}
 
-            <a href="/">
-              ¿Olvido su contraseña?
-            </a>
-          </div>
-
-          <button type="submit">
-            INGRESAR
-          </button>
+          <button type="submit">INGRESAR</button>
 
           <p className="texto-final">
             ¿No tienes cuenta?{" "}
-            <span
-              className="link"
-              onClick={irARegistro}
-            >
-              Crear cuenta
+            <span className="link" onClick={irARegistro}>
+              Regístrate
             </span>
           </p>
         </form>

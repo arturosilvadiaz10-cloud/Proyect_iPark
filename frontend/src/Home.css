@@ -1,0 +1,139 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI, sans-serif;
+    background:#f5f7fa;
+}
+
+.hero{
+    min-height:100vh;
+    background:linear-gradient(rgba(1,93,140,.8),rgba(30,58,138,.8)),
+    url("https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1500&q=80");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px 60px;
+}
+
+.logo{
+    font-size:2rem;
+}
+.logopark{
+    height: 100px;
+}
+
+.btn-login{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#f59e0b;
+    color:white;
+    font-weight:bold;
+    height: 60px;
+    width: 200px;
+
+}
+
+.hero-intro{
+    font-family:'Times New Roman', Times, serif;
+}
+
+.hero-content{
+    height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero-content h1{
+    font-size:3.5rem;
+    margin-bottom:20px;
+}
+
+.hero-content p{
+    max-width:700px;
+    font-size:1.2rem;
+    margin-bottom:40px;
+}
+
+.btn-principal{
+    padding:18px 40px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    background:#f59e0b;
+    color:white;
+    cursor:pointer;
+    width: 250px;
+    margin-top: 50px;
+}
+
+.beneficios{
+    padding:80px;
+    background:white;
+}
+
+.beneficios h2{
+    text-align:center;
+    margin-bottom:50px;
+    color:#1e3a8a;
+    font-family:'Times New Roman', Times, serif;
+}
+
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:#f9fafb;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.card h3{
+    margin-bottom:15px;
+    color:#015D8C;
+}
+
+.informacion{
+    padding:80px;
+    text-align:center;
+    background:#eef3f8;
+}
+
+.informacion h2{
+    color:#1e3a8a;
+    margin-bottom:20px;
+}
+
+.informacion p{
+    max-width:800px;
+    margin:auto;
+    line-height:1.8;
+}
+
+footer{
+    background:#1e3a8a;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
