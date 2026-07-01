@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios"; // Importación agregada
 import "./style.css"; 
 
 export default function Login({ irARegistro, alIniciarSesion }) {
@@ -6,7 +7,8 @@ export default function Login({ irARegistro, alIniciarSesion }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  // Función modificada para verificar credenciales en el backend
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!correo || !password) {
@@ -14,11 +16,18 @@ export default function Login({ irARegistro, alIniciarSesion }) {
       return;
     }
 
-    setError("");
-    
-    
-    if (alIniciarSesion) {
-      alIniciarSesion();
+    try {
+      // Envía los datos al backend para verificar si existen
+      const res = await axios.post('http://localhost:5000/api/login', { correo, password });
+
+      // Si el backend responde con success: true, permite el ingreso
+      if (res.data.success) {
+        setError("");
+        alIniciarSesion(); 
+      }
+    } catch (err) {
+      // Si el usuario no existe o la contraseña falla, muestra el error
+      setError("Correo o contraseña incorrectos.");
     }
   };
 

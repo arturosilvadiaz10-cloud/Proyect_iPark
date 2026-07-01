@@ -1,182 +1,58 @@
-import { useState } from "react";
-import "./Register.css";
+import { useState } from 'react';
+import axios from 'axios';
 
-export default function Register({ irALogin }) {
-  const [nombre, setNombre] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmar, setConfirmar] = useState("");
-  const [vehiculo, setVehiculo] = useState("");
-  const [rol, setRol] = useState("");
-  const [error, setError] = useState("");
+export default function Register({ irALogin, alRegistrarse }) {
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '', // Agregado porque es requerido en la DB
+    correo: '',
+    password: '',
+    confirmPassword: '',
+    rol: 'usuario' 
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-
-    if (
-      !nombre ||
-      !correo ||
-      !password ||
-      !confirmar ||
-      !vehiculo ||
-      !rol
-    ) {
-      setError("Por favor complete todos los campos.");
+    
+    if (formData.password !== formData.confirmPassword) {
+      alert("Las contraseñas no coinciden");
       return;
     }
 
-    if (password !== confirmar) {
-      setError("Las contraseñas no coinciden.");
-      return;
+    // Generar ID único de 7 dígitos para cumplir con PRIMARY KEY
+    const generatedId = Math.floor(1000000 + Math.random() * 9000000).toString();
+
+    try {
+      await axios.post('http://localhost:5000/api/registro', {
+        id_usr: generatedId,
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        correo: formData.correo,
+        password: formData.password,
+        rol: formData.rol
+      });
+
+      alert("¡Registro exitoso!");
+      alRegistrarse(); 
+    } catch (error) {
+      console.error("Error al registrar:", error);
+      alert("Error al conectar con el servidor. Revisa la consola.");
     }
-
-    setError("");
-
-    alert(`
-Registro exitoso
-
-Nombre: ${nombre}
-Correo: ${correo}
-Vehículo: ${vehiculo}
-Rol: ${rol}
-    `);
-
-    setNombre("");
-    setCorreo("");
-    setPassword("");
-    setConfirmar("");
-    setVehiculo("");
-    setRol("");
   };
 
   return (
-    <div className="contenedor">
-      <section className="panel-marca">
-        <div className="logo-wrapper">
-          <img src="logo-_Park-blanco.png"></img>
-
-          <p className="slogan">
-          </p>
-        </div>
-      </section>
-
-      <section className="panel-formulario">
-        <form className="login-card" onSubmit={handleSubmit}>
-          <h1 className="titulo">
-            CREAR CUENTA
-          </h1>
-
-          <label>NOMBRE COMPLETO</label>
-          <input
-            type="text"
-            placeholder="Ingrese su nombre"
-            value={nombre}
-            onChange={(e) =>
-              setNombre(e.target.value)
-            }
-          />
-
-          <label>CORREO ELECTRÓNICO</label>
-          <input
-            type="email"
-            placeholder="correo@ejemplo.com"
-            value={correo}
-            onChange={(e) =>
-              setCorreo(e.target.value)
-            }
-          />
-
-          <label>CONTRASEÑA</label>
-          <input
-            type="password"
-            placeholder="********"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-          />
-
-          <label>CONFIRMAR CONTRASEÑA</label>
-          <input
-            type="password"
-            placeholder="********"
-            value={confirmar}
-            onChange={(e) =>
-              setConfirmar(e.target.value)
-            }
-          />
-
-          <label>TIPO DE VEHÍCULO</label>
-          <select
-            className="select-rol"
-            value={vehiculo}
-            onChange={(e) =>
-              setVehiculo(e.target.value)
-            }
-          >
-            <option value="">
-              Seleccione un vehículo
-            </option>
-
-            <option value="Carro">
-              Carro
-            </option>
-
-            <option value="Moto">
-              Moto
-            </option>
-
-            <option value="Bicicleta">
-              Bicicleta
-            </option>
-          </select>
-
-          <label>ROL</label>
-          <select
-            className="select-rol"
-            value={rol}
-            onChange={(e) =>
-              setRol(e.target.value)
-            }
-          >
-            <option value="">
-              Seleccione un rol
-            </option>
-
-            <option value="Administrador">
-              Administrador
-            </option>
-
-            <option value="Operador">
-              Operador
-            </option>
-
-            <option value="Usuario">
-              Usuario
-            </option>
-          </select>
-
-          {error && (
-            <p className="mensaje-error">
-              {error}
-            </p>
-          )}
-
-          <button type="submit">
-            REGISTRARSE
-          </button>
-
-          <p className="texto-final">
-            ¿Ya tienes cuenta?{" "}
-            <span
-              className="link"
-              onClick={irALogin}
-            >
-              Iniciar sesión
-            </span>
-          </p>
-        </form>
-      </section>
-    </div>
+    <form onSubmit={handleRegister}>
+      <h2>¡REGISTRA TU CUENTA!</h2>
+      <input name="nombre" placeholder="Nombre" onChange={handleChange} required />
+      <input name="apellido" placeholder="Apellido" onChange={handleChange} required />
+      <input name="correo" type="email" placeholder="Correo" onChange={handleChange} required />
+      <input name="password" type="password" placeholder="Contraseña" onChange={handleChange} required />
+      <input name="confirmPassword" type="password" placeholder="Confirmar Contraseña" onChange={handleChange} required />
+      <button type="submit">REGISTRARSE</button>
+    </form>
   );
 }

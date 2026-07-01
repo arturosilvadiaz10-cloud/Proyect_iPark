@@ -3,7 +3,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
 
-// Importación de tus módulos existentes (respetando minúsculas y mayúsculas de tus archivos)
+// Importación de tus módulos existentes
 import Tablero from "./tablero";
 import MapaCeldas from "./MapaCeldas";
 import RegistroEntrada from "./RegistroEntrada";
@@ -30,7 +30,12 @@ export default function App() {
       );
 
     case "register":
-      return <Register irALogin={() => setPantalla("login")} />;
+      return (
+        <Register 
+          irALogin={() => setPantalla("login")} 
+          alRegistrarse={() => setPantalla("login")} // Cambia a "panel" si prefieres que entre directo al sistema
+        />
+      );
 
     case "panel":
       return (
@@ -40,7 +45,7 @@ export default function App() {
           <aside style={{ width: "260px", background: "#0f2c74", color: "white", padding: "20px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
               <div style={{ paddingBottom: "20px", borderBottom: "1px solid rgba(255,255,255,0.1)", marginBottom: "20px" }}>
-                <img className="logoparkj"   src="logo-_Park-blanco.png"></img>
+                <img className="logoparkj" src="logo-_Park-blanco.png" alt="Logo" />
               </div>
               
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -101,7 +106,6 @@ export default function App() {
               {seccionInterna === "reporte" && <ReporteHistorico />}
             </main>
           </div>
-
         </div>
       );
 
